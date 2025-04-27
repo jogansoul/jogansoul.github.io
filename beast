@@ -1,0 +1,1724 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8'/>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <b:include data='blog' name='all-head-content'/>
+  <title><data:blog.pageTitle/></title>
+
+  <b:skin><![CDATA[
+  /* Variable definitions
+  =======================
+  <Group description="Page Text" selector="body">
+    <Variable name="body.font" description="Font" type="font" default="normal normal 12px Arial, Tahoma, Helvetica, FreeSans, sans-serif" value="normal normal 12px &#39;Trebuchet MS&#39;, Trebuchet, Verdana, sans-serif"/>
+    <Variable name="body.text.color" description="Text Color" type="color" default="#222222" value="#666666"/>
+  </Group>
+
+  <Group description="Links" selector=".main-outer">
+    <Variable name="link.color" description="Link Color" type="color" default="#2288bb" value="#2288bb"/>
+    <Variable name="link.visited.color" description="Visited Color" type="color" default="#888888" value="#888888"/>
+    <Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff" value="#33aaff"/>
+  </Group>
+
+  <Group description="Blog Title" selector=".header h1">
+    <Variable name="header.font" description="Font" type="font" default="normal normal 40px 'Trebuchet MS', Trebuchet, Verdana, sans-serif" value="normal normal 40px &#39;Trebuchet MS&#39;, Trebuchet, Verdana, sans-serif"/>
+    <Variable name="header.text.color" description="Title Color" type="color" default="#000000" value="#000000"/>
+  </Group>
+
+  <Group description="Primary Color" selector=".widget-content">
+    <Variable name="primary.color" description="Primary Color" type="color" default="#4285f4" value="#4285f4"/>
+  </Group>
+  */
+
+  /* Reset & Basic Styles */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: $(body.text.color);
+    background: #f5f5f5;
+  }
+
+  a {
+    color: $(link.color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $(link.hover.color);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 20px;
+    font-weight: 700;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Header */
+  .header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px 0;
+    margin-bottom: 40px;
+  }
+
+  .header h1 {
+    font-family: $(header.font);
+    color: $(header.text.color);
+    font-size: 28px;
+    margin: 0;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Main Content */
+  .main-content {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-bottom: 40px;
+  }
+
+  /* App Styles */
+  .app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .app-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .app-description {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+  }
+
+  /* Form Styles */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+  }
+
+  .form-col {
+    flex: 1;
+    padding: 0 10px;
+    min-width: 200px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: $(primary.color);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #3367d6;
+  }
+
+  .btn-secondary {
+    background: #f1f1f1;
+    color: #333;
+  }
+
+  .btn-secondary:hover {
+    background: #e1e1e1;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Title Output Styles */
+  .output-area {
+    display: none;
+    margin-top: 40px;
+  }
+
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .title-count {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .titles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .title-option {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .title-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .title-option h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .copy-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #4caf50;
+    color: white;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* History Panel */
+  .history-panel {
+    display: none;
+    margin-top: 40px;
+  }
+
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .history-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .history-title {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .history-title:hover {
+    background: #f1f1f1;
+  }
+
+  .history-title:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Advanced Options */
+  .advanced-toggle {
+    color: $(link.color);
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 15px;
+  }
+
+  .advanced-options {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 6px;
+  }
+
+  /* Loading Spinner */
+  .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Animations */
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+    }
+    
+    .form-col {
+      margin-bottom: 15px;
+    }
+    
+    .titles-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .button-container {
+      flex-direction: column;
+    }
+    
+    .btn {
+      width: 100%;
+    }
+  }
+
+  /* Footer */
+  .footer {
+    padding: 20px 0;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-top: 40px;
+  }
+  ]]></b:skin>
+</head>
+
+<body>
+  <div class='header'>
+    <div class='container header-content'>
+      <h1><data:blog.title/></h1>
+      <b:section id='header' maxwidgets='1' showaddelement='no'>
+        <b:widget id='Navbar1' locked='true' title='Navbar' type='Navbar'>
+          <b:includable id='main'>&lt;script type=&quot;text/javascript&quot;&gt;
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener(&#39;load&#39;,
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent(&#39;onload&#39;, function(){ object[attribute] = val; });
+      }
+    }
+  &lt;/script&gt;
+&lt;div id=&quot;navbar-iframe-container&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://apis.google.com/js/platform.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+      gapi.load(&quot;gapi.iframes:gapi.iframes.style.bubble&quot;, function() {
+        if (gapi.iframes &amp;&amp; gapi.iframes.getContext) {
+          gapi.iframes.getContext().openChild({
+              url: &#39;https://draft.blogger.com/navbar/6859219138834655362?origin\x3dhttp://localhost:80&#39;,
+              where: document.getElementById(&quot;navbar-iframe-container&quot;),
+              id: &quot;navbar-iframe&quot;
+          });
+        }
+      });
+    &lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;
+(function() {
+var script = document.createElement(&#39;script&#39;);
+script.type = &#39;text/javascript&#39;;
+script.src = &#39;//pagead2.googlesyndication.com/pagead/js/google_top_exp.js&#39;;
+var head = document.getElementsByTagName(&#39;head&#39;)[0];
+if (head) {
+head.appendChild(script);
+}})();
+&lt;/script&gt;
+</b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+  </div>
+
+  <div class='container'>
+    <div class='main-content'>
+      <div class='app-container'>
+        <div class='app-header'>
+          <h1>Title Generator</h1>
+        </div>
+        
+        <div class='app-description'>
+          <p>Generate catchy, SEO-friendly titles for your content with our powerful AI-driven title generator.</p>
+        </div>
+        
+        <div class='form-group'>
+          <label for='content-input'>Paste your content:</label>
+          <textarea class='form-control' id='content-input' placeholder='Paste your article, blog post, or content here (minimum 20 characters)...'/>
+        </div>
+        
+        <div class='form-row'>
+          <div class='form-col'>
+            <div class='form-group'>
+              <label for='title-style'>Title Style:</label>
+              <select class='form-control' id='title-style'>
+                <option value='informative'>Informative</option>
+                <option value='creative'>Creative</option>
+                <option value='professional'>Professional</option>
+                <option value='clickbait'>Clickbait</option>
+                <option value='seo'>SEO-Optimized</option>
+                <option value='question'>Question-Based</option>
+                <option value='howto'>How-To</option>
+                <option value='listicle'>List-Based</option>
+                <option value='news'>News Style</option>
+                <option value='mixed'>Mixed (Variety)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class='form-col'>
+            <div class='form-group'>
+              <label for='title-length'>Title Length:</label>
+              <select class='form-control' id='title-length'>
+                <option value='short'>Short (20-40 characters)</option>
+                <option selected='selected' value='medium'>Medium (40-70 characters)</option>
+                <option value='long'>Long (70-100+ characters)</option>
+                <option value='varied'>Varied (Mix of lengths)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class='form-col'>
+            <div class='form-group'>
+              <label for='batch-size'>Number of Titles:</label>
+              <select class='form-control' id='batch-size'>
+                <option value='5'>5 titles</option>
+                <option selected='selected' value='10'>10 titles</option>
+                <option value='15'>15 titles</option>
+                <option value='20'>20 titles</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class='form-group'>
+          <label for='manual-topic'>Main Topic (Optional):</label>
+          <input class='form-control' id='manual-topic' placeholder='Leave blank for automatic keyword extraction' type='text'>
+          </input>
+        </div>
+        
+        <div class='advanced-toggle' id='advanced-toggle'>Show Advanced Options &#9660;</div>
+        
+        <div class='advanced-options' id='advanced-options'>
+          <div class='form-row'>
+            <div class='form-col'>
+              <div class='form-group'>
+                <label for='include-numbers'>Include Numbers:</label>
+                <select class='form-control' id='include-numbers'>
+                  <option value='always'>Always</option>
+                  <option selected='selected' value='sometimes'>Sometimes</option>
+                  <option value='never'>Never</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class='form-col'>
+              <div class='form-group'>
+                <label for='include-date'>Include Current Year:</label>
+                <select class='form-control' id='include-date'>
+                  <option value='always'>Always</option>
+                  <option selected='selected' value='sometimes'>Sometimes</option>
+                  <option value='never'>Never</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class='form-row'>
+            <div class='form-col'>
+              <div class='form-group'>
+                <label for='emotional-tone'>Emotional Tone:</label>
+                <select class='form-control' id='emotional-tone'>
+                  <option selected='selected' value='neutral'>Neutral</option>
+                  <option value='positive'>Positive</option>
+                  <option value='negative'>Negative</option>
+                  <option value='curious'>Curious</option>
+                  <option value='urgent'>Urgent</option>
+                  <option value='surprised'>Surprised</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class='form-col'>
+              <div class='form-group'>
+                <label for='title-structure'>Title Structure:</label>
+                <select class='form-control' id='title-structure'>
+                  <option selected='selected' value='standard'>Standard</option>
+                  <option value='question'>Question</option>
+                  <option value='statement'>Statement</option>
+                  <option value='command'>Command</option>
+                  <option value='comparison'>Comparison</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class='button-container'>
+          <button class='btn btn-primary' id='generate-btn'>Generate Titles</button>
+          <button class='btn btn-secondary' disabled='disabled' id='regenerate-btn'>Regenerate</button>
+          <button class='btn btn-secondary' disabled='disabled' id='more-btn'>Generate More</button>
+        </div>
+        
+        <div class='output-area' id='output-area'>
+          <div class='output-header'>
+            <h2>Generated Titles</h2>
+            <div class='title-count' id='title-count'>0 titles generated</div>
+          </div>
+          
+          <div class='titles-container' id='titles-container'/>
+          
+          <div class='button-container'>
+            <button class='btn btn-primary' id='more-titles-btn'>Generate More Titles</button>
+          </div>
+        </div>
+        
+        <div class='history-panel' id='history-panel'>
+          <div class='history-header'>
+            <h3>Saved Titles</h3>
+            <button class='btn btn-secondary' id='clear-history'>Clear History</button>
+          </div>
+          
+          <div class='history-container' id='history-container'/>
+        </div>
+      </div>
+    </div>
+    
+    <div class='footer'>
+      <p>&#169; <script>document.write(new Date().getFullYear())</script> <data:blog.title/>. All Rights Reserved.</p>
+    </div>
+  </div>
+
+  <!-- ========== YOUR JAVASCRIPT CODE GOES HERE ========== -->
+ <script>
+	//<![CDATA[
+        // Enhanced title templates with more variety
+        const titleTemplates = {
+            informative: {
+                short: [
+                    "TOPIC: A Complete Guide",
+                    "Understanding TOPIC",
+                    "TOPIC Fundamentals",
+                    "TOPIC: The Essentials",
+                    "TOPIC in YEAR",
+                    "TOPIC 101",
+                    "TOPIC Explained",
+                    "TOPIC Overview",
+                    "Essential TOPIC",
+                    "TOPIC Basics",
+                    "TOPIC Insights",
+                    "TOPIC Principles",
+                    "TOPIC Handbook",
+                    "TOPIC Framework",
+                    "TOPIC Analysis",
+                    "TOPIC Foundations",
+                    "TOPIC Simplified",
+                    "Core TOPIC Concepts",
+                    "TOPIC Elements",
+                    "TOPIC Digest"
+                ],
+                medium: [
+                    "Everything You Need to Know About TOPIC",
+                    "TOPIC: Benefits, Challenges, and Solutions",
+                    "The Complete Guide to TOPIC in YEAR",
+                    "Understanding TOPIC: Key Concepts Explained",
+                    "TOPIC: Best Practices and Implementation",
+                    "A Practical Guide to TOPIC Management",
+                    "TOPIC: Core Principles and Applications",
+                    "Essential Elements of Successful TOPIC",
+                    "TOPIC: From Fundamentals to Advanced Concepts",
+                    "Navigating the World of TOPIC Effectively",
+                    "The Definitive Resource for TOPIC Learning",
+                    "TOPIC: Understanding the Key Components",
+                    "Mastering TOPIC: A Comprehensive Approach",
+                    "TOPIC Essentials: What You Should Know",
+                    "The Evolution and Impact of TOPIC",
+                    "Exploring the Dimensions of TOPIC",
+                    "TOPIC: Analysis and Strategic Implications",
+                    "A Structured Approach to TOPIC Management",
+                    "TOPIC: Current Trends and Future Outlook",
+                    "Making Sense of TOPIC: Core Frameworks"
+                ],
+                long: [
+                    "A Comprehensive Guide to Understanding and Implementing TOPIC",
+                    "TOPIC: Everything You Need to Know for Success in YEAR",
+                    "Understanding the Key Elements and Benefits of TOPIC",
+                    "TOPIC: How to Implement Best Practices for Maximum Results",
+                    "The Ultimate Resource Guide for TOPIC Implementation and Success",
+                    "Navigating the Complex Landscape of TOPIC: A Complete Overview",
+                    "TOPIC Mastery: A Step-by-Step Approach to Excellence in the Field",
+                    "The Essential Components of Effective TOPIC Strategy and Execution",
+                    "TOPIC in Context: Understanding Historical Development and Future Trends",
+                    "Building a Solid Foundation: The Complete Framework for TOPIC Success",
+                    "From Theory to Practice: A Comprehensive Exploration of TOPIC Applications",
+                    "TOPIC Defined: An In-Depth Analysis of Core Principles and Best Approaches",
+                    "Demystifying TOPIC: A Thorough Examination of Concepts and Implementation",
+                    "The Interconnected Elements of Successful TOPIC Strategies and Outcomes",
+                    "TOPIC Excellence: A Systematic Approach to Understanding and Implementation",
+                    "Beyond the Basics: Advanced Concepts and Applications in TOPIC",
+                    "TOPIC Management: A Comprehensive Guide to Theory and Applied Practice",
+                    "The Multifaceted Nature of TOPIC: Exploring All Dimensions and Impacts",
+                    "TOPIC Integration: A Complete Roadmap for Implementation and Optimization",
+                    "The Definitive Guide to TOPIC: From Fundamental Concepts to Expert Strategies"
+                ]
+            },
+            creative: {
+                short: [
+                    "TOPIC Reimagined",
+                    "The TOPIC Revolution",
+                    "Beyond TOPIC",
+                    "TOPIC Unleashed",
+                    "The TOPIC Paradigm",
+                    "TOPIC Alchemy",
+                    "Vibrant TOPIC",
+                    "TOPIC Dreams",
+                    "TOPIC Horizons",
+                    "TOPIC Reinvented",
+                    "TOPIC Mosaics",
+                    "The TOPIC Canvas",
+                    "TOPIC Odyssey",
+                    "Infinite TOPIC",
+                    "TOPIC Symphony",
+                    "TOPIC Kaleidoscope",
+                    "TOPIC Visionaries",
+                    "TOPIC Wonderland",
+                    "Luminous TOPIC",
+                    "TOPIC Dimensions"
+                ],
+                medium: [
+                    "Unlocking the Hidden Potential of TOPIC",
+                    "TOPIC: A Journey to Extraordinary Results",
+                    "The Art and Science of Mastering TOPIC",
+                    "TOPIC Alchemy: Transforming Ideas into Gold",
+                    "Breaking Boundaries: A New Era of TOPIC",
+                    "Dancing with TOPIC: Creative Paths Forward",
+                    "The Symphony of TOPIC: Harmonizing Elements",
+                    "Weaving Dreams: The Tapestry of TOPIC",
+                    "TOPIC Kaleidoscope: Patterns of Possibility",
+                    "Beyond Horizons: Reimagining TOPIC Entirely",
+                    "The TOPIC Renaissance: Beauty in Innovation",
+                    "Painting Outside Lines: TOPIC Reconsidered",
+                    "TOPIC Illuminated: Shining New Perspectives",
+                    "The Poetry of TOPIC: Rhythms and Resonance",
+                    "TOPIC Metamorphosis: Evolution in Motion",
+                    "Sculpting the Future: TOPIC Reimagined",
+                    "The TOPIC Mosaic: Pieces of Brilliance",
+                    "Dreaming in TOPIC: Visions of Tomorrow",
+                    "TOPIC Unchained: Freedom to Create",
+                    "The TOPIC Constellation: Connecting Stars"
+                ],
+                long: [
+                    "The Unexpected Magic: How TOPIC Is Changing Everything We Know",
+                    "Beyond the Horizon: Discovering New Frontiers in TOPIC",
+                    "The Secret Symphony: Orchestrating Success Through TOPIC",
+                    "Painting with Possibilities: The Colorful World of TOPIC",
+                    "Whispers of Innovation: The Untold Story Behind TOPIC's Revolution",
+                    "Dancing Through Dimensions: The Extraordinary Journey of TOPIC Discovery",
+                    "Celestial Cartography: Mapping the Uncharted Territories of TOPIC",
+                    "The Alchemy of Imagination: Transforming TOPIC into Pure Possibility",
+                    "Weaving Dreams into Reality: The Tapestry of TOPIC Innovation",
+                    "Symphonies of Creativity: The Harmonious Evolution of TOPIC Thinking",
+                    "Beyond the Looking Glass: The Wonderland of TOPIC Exploration",
+                    "The Renaissance of Thought: How TOPIC is Painting Our Future",
+                    "Constellations of Connection: Finding Patterns in the TOPIC Universe",
+                    "The Butterfly Effect: Small TOPIC Changes Creating Magnificent Results",
+                    "Echoes of Tomorrow: The Reverberating Impact of TOPIC Innovation",
+                    "Kaleidoscopic Visions: The Ever-Changing Patterns of TOPIC Possibilities",
+                    "The Architecture of Dreams: Building New Worlds Through TOPIC",
+                    "Sailing Uncharted Waters: The Brave Exploration of TOPIC Frontiers",
+                    "The Poetry of Progress: Verses and Stanzas in the TOPIC Journey",
+                    "Quantum Leaps of Imagination: The Particles and Waves of TOPIC Thinking"
+                ]
+            },
+            professional: {
+                short: [
+                    "TOPIC: Strategic Analysis",
+                    "TOPIC Implementation Framework",
+                    "TOPIC: Industry Insights",
+                    "TOPIC: Performance Metrics",
+                    "TOPIC: Business Applications",
+                    "TOPIC Optimization",
+                    "TOPIC Management",
+                    "TOPIC Strategies",
+                    "Enterprise TOPIC",
+                    "TOPIC Architecture",
+                    "TOPIC Benchmarks",
+                    "TOPIC Infrastructure",
+                    "TOPIC Governance",
+                    "TOPIC Solutions",
+                    "TOPIC Leadership",
+                    "TOPIC Operations",
+                    "TOPIC Standards",
+                    "TOPIC Compliance",
+                    "TOPIC Methodology",
+                    "TOPIC Integration"
+                ],
+                medium: [
+                    "Strategic Implementation of TOPIC for Business Growth",
+                    "TOPIC: A Framework for Organizational Excellence",
+                    "Leveraging TOPIC for Competitive Advantage",
+                    "TOPIC: Measuring ROI and Business Impact",
+                    "TOPIC: Best Practices for Enterprise Implementation",
+                    "Optimizing TOPIC Processes for Maximum Efficiency",
+                    "TOPIC Strategy: Aligning with Business Objectives",
+                    "Enterprise TOPIC Management: Key Success Factors",
+                    "TOPIC Integration: Streamlining Business Operations",
+                    "Developing a Robust TOPIC Framework for Organizations",
+                    "TOPIC Excellence: Benchmarks and Performance Indicators",
+                    "Strategic TOPIC Planning: A Business Imperative",
+                    "TOPIC Governance: Creating Sustainable Business Value",
+                    "Building Enterprise Capability Through Effective TOPIC",
+                    "TOPIC Risk Management: A Systematic Approach",
+                    "Measuring and Improving TOPIC Performance Metrics",
+                    "TOPIC Investment: Calculating Business Value and ROI",
+                    "TOPIC Architecture: Designing for Business Outcomes",
+                    "Implementing TOPIC Systems: Best Practices Guide",
+                    "TOPIC Transformation: Leading Organizational Change"
+                ],
+                long: [
+                    "Strategic Framework for Implementing TOPIC in Enterprise Environments",
+                    "Maximizing Organizational Efficiency Through TOPIC: A Case Study Analysis",
+                    "TOPIC as a Catalyst for Business Transformation and Growth",
+                    "Quantifying the Business Value and ROI of TOPIC Implementation",
+                    "TOPIC Integration: Strategies for Seamless Enterprise Adoption and Scaling",
+                    "Developing Comprehensive TOPIC Governance for Enterprise Risk Mitigation",
+                    "The Strategic Value Proposition of Enterprise-Wide TOPIC Implementation",
+                    "Building Organizational Capability Through Systematic TOPIC Management",
+                    "Optimizing Business Outcomes Through Strategic TOPIC Performance Management",
+                    "Enterprise TOPIC Architecture: Design Principles for Sustainable Business Value",
+                    "TOPIC Excellence in Organizations: A Framework for Continuous Improvement",
+                    "Measuring and Enhancing the Business Impact of TOPIC Initiatives",
+                    "Strategic Alignment of TOPIC with Organizational Goals and Objectives",
+                    "TOPIC Maturity Assessment: A Methodology for Organizational Benchmarking",
+                    "Leading TOPIC Transformation: Change Management for Enterprise Success",
+                    "Developing a Comprehensive Business Case for Enterprise TOPIC Investment",
+                    "TOPIC Risk Assessment and Mitigation: A Strategic Business Approach",
+                    "The Impact of TOPIC Excellence on Organizational Performance Metrics",
+                    "Building a Culture of TOPIC Innovation in Enterprise Organizations",
+                    "TOPIC Implementation Roadmap: Strategic Planning for Business Success"
+                ]
+            },
+            clickbait: {
+                short: [
+                    "TOPIC: You Won't Believe...",
+                    "TOPIC Secrets Revealed!",
+                    "TOPIC That Shocks Everyone",
+                    "The TOPIC Phenomenon",
+                    "TOPIC Game-Changer Alert!",
+                    "Mind-Blowing TOPIC!",
+                    "TOPIC They Tried Hiding",
+                    "Shocking TOPIC Truth",
+                    "TOPIC Breakthrough!",
+                    "TOPIC Myths Destroyed",
+                    "Revolutionary TOPIC!",
+                    "TOPIC Experts Hate This",
+                    "Insane TOPIC Results",
+                    "TOPIC Hack Exposed",
+                    "TOPIC Will Stun You",
+                    "Forbidden TOPIC Knowledge",
+                    "TOPIC Industry Shakeup",
+                    "TOPIC That Went Viral",
+                    "The TOPIC Conspiracy",
+                    "TOPIC: Simply Unbelievable"
+                ],
+                medium: [
+                    "10 TOPIC Hacks That Will Blow Your Mind",
+                    "The TOPIC Secret They Don't Want You to Know",
+                    "Why TOPIC Is About to Change Everything",
+                    "Top TOPIC Mistakes You're Making Right Now",
+                    "This TOPIC Trick Will Save You Hours!",
+                    "7 TOPIC Secrets the Experts Are Hiding",
+                    "How This TOPIC Discovery Is Shocking Everyone",
+                    "The TOPIC Scandal Nobody Is Talking About",
+                    "Why Your TOPIC Strategy Is Completely Wrong",
+                    "This TOPIC Shortcut Will Make You Rich",
+                    "5 TOPIC Myths That Are Costing You Everything",
+                    "The TOPIC Revolution That's Sweeping the Nation",
+                    "Why Experts Are Panicking About This TOPIC Trend",
+                    "The Dark Truth Behind TOPIC Nobody Mentions",
+                    "How This TOPIC Hack Changed Everything Overnight",
+                    "I Tried This TOPIC Trick and Was Shocked!",
+                    "The Controversial TOPIC Method That Actually Works",
+                    "These TOPIC Tips Will Make You Instantly Successful",
+                    "The TOPIC Industry Doesn't Want This Revealed",
+                    "Why Your TOPIC Knowledge Is Dangerously Outdated"
+                ],
+                long: [
+                    "You've Been Doing TOPIC All Wrong — Here's What the Experts Won't Tell You",
+                    "This Revolutionary Approach to TOPIC Is Making Experts Lose Their Minds",
+                    "The Shocking Truth About TOPIC That No One Is Talking About",
+                    "I Tried These 7 TOPIC Techniques and You Won't Believe What Happened Next",
+                    "Forget Everything You Know About TOPIC: The New Rules Will Amaze You",
+                    "This Underground TOPIC Secret Is Transforming Regular People Into Millionaires",
+                    "The TOPIC Industry Is Collapsing and These 5 Warning Signs Prove It",
+                    "Scientists Discovered This TOPIC Hack That's Making Traditional Methods Obsolete",
+                    "This Controversial TOPIC Method Has Been Banned in 7 Countries (But Works)",
+                    "The Government Doesn't Want You to Know These Mind-Blowing TOPIC Facts",
+                    "I Was Skeptical About This TOPIC Approach Until It Changed My Life Overnight",
+                    "The Billion-Dollar TOPIC Secret That's Been Hidden From The Public Until Now",
+                    "What The TOPIC Industry Doesn't Want You To Know (Shocking Investigation)",
+                    "They Laughed When I Used This TOPIC Method, Then They Saw My Results",
+                    "The Ancient TOPIC Secret That Modern Experts Are Finally Rediscovering",
+                    "The TOPIC Conspiracy: How Big Companies Are Keeping You From Success",
+                    "This Weird TOPIC Trick Is Making Traditional Experts Completely Obsolete",
+                    "Why Everything You've Been Taught About TOPIC Is Dangerous Misinformation",
+                    "The Forbidden TOPIC Knowledge That Will Transform Your Results Overnight",
+                    "This Overlooked TOPIC Strategy Is Creating Overnight Success Stories Everywhere"
+                ]
+            },
+            seo: {
+                short: [
+                    "Best TOPIC Guide YEAR",
+                    "TOPIC Tips & Tricks",
+                    "How to Master TOPIC",
+                    "Ultimate TOPIC Guide",
+                    "TOPIC Strategies That Work",
+                    "Top TOPIC Resources",
+                    "TOPIC for Beginners",
+                    "Advanced TOPIC Techniques",
+                    "TOPIC FAQ Answered",
+                    "Complete TOPIC Tutorial",
+                    "TOPIC Step by Step",
+                    "Essential TOPIC Guide",
+                    "TOPIC Made Simple",
+                    "TOPIC: A Definitive Guide",
+                    "Proven TOPIC Methods",
+                    "TOPIC Tools Review",
+                    "TOPIC Examples & Templates",
+                    "TOPIC Best Practices",
+                    "TOPIC Checklist YEAR",
+                    "Compare Top TOPIC Options"
+                ],
+                medium: [
+                    "Top 10 TOPIC Strategies for Success in YEAR",
+                    "How to Improve Your TOPIC: Complete Guide",
+                    "The Ultimate Guide to TOPIC Optimization",
+                    "TOPIC Best Practices: Expert Tips and Tricks",
+                    "How to Choose the Best TOPIC for Your Needs",
+                    "TOPIC 101: Beginner's Guide to Getting Started",
+                    "TOPIC vs. KEYWORD: Which is Better in YEAR?",
+                    "X Ways to Improve Your TOPIC Results Today",
+                    "How to Fix Common TOPIC Problems Quickly",
+                    "TOPIC Examples: Learn from the Best in YEAR",
+                    "The Complete TOPIC Checklist for Beginners",
+                    "Why Your TOPIC Strategy Needs an Update",
+                    "TOPIC Review: Pros, Cons and Alternatives",
+                    "Step-by-Step TOPIC Tutorial for Beginners",
+                    "TOPIC Tools: Complete Comparison Guide",
+                    "How to Create a Successful TOPIC Strategy",
+                    "TOPIC FAQ: Answers to Your Top Questions",
+                    "The Beginner's Guide to TOPIC Mastery",
+                    "X TOPIC Mistakes to Avoid at All Costs",
+                    "TOPIC Tips: Expert Advice for Better Results"
+                ],
+                long: [
+                    "The Ultimate Guide to TOPIC: Everything You Need to Know in YEAR",
+                    "X Proven TOPIC Strategies That Will Boost Your Results in YEAR",
+                    "How to Create an Effective TOPIC Strategy: Step-by-Step Guide",
+                    "TOPIC Best Practices: A Comprehensive Guide for Beginners and Experts",
+                    "Top TOPIC Tools Comparison: Features, Pricing and Reviews in YEAR",
+                    "TOPIC vs KEYWORD vs KEYWORD2: Which One Is Right for Your Needs?",
+                    "How to Troubleshoot the Most Common TOPIC Problems: Complete Guide",
+                    "The Beginner's Guide to TOPIC: From Basics to Advanced Techniques",
+                    "X Expert Tips to Improve Your TOPIC Results That Actually Work",
+                    "How to Measure and Improve Your TOPIC Performance: Data-Driven Guide",
+                    "The Complete TOPIC Audit Checklist: Improve Your Strategy Today",
+                    "TOPIC Case Studies: X Success Stories and What You Can Learn From Them",
+                    "How to Choose the Best TOPIC Solution: Comprehensive Buyer's Guide",
+                    "X Ways to Optimize Your TOPIC Strategy for Better Performance in YEAR",
+                    "The Most Common TOPIC Mistakes and How to Avoid Them: Expert Guide",
+                    "How to Create a TOPIC Plan That Actually Delivers Results: Step-by-Step",
+                    "TOPIC Best Practices: What Works and What Doesn't in YEAR",
+                    "The Ultimate TOPIC FAQ: Answers to the Most Common Questions",
+                    "X TOPIC Examples to Inspire Your Strategy: Analysis and Takeaways",
+                    "How to Master TOPIC in X Days: The Complete Roadmap for Success"
+                ]
+            },
+            question: {
+                short: [
+                    "Why TOPIC Matters?",
+                    "Is TOPIC Worth It?",
+                    "What Makes TOPIC Work?",
+                    "Who Needs TOPIC?",
+                    "How to Master TOPIC?",
+                    "When to Use TOPIC?",
+                    "Can TOPIC Really Help?",
+                    "Where to Find TOPIC?",
+                    "What is TOPIC Actually?",
+                    "Are You Using TOPIC Right?",
+                    "TOPIC: Myth or Reality?",
+                    "Is TOPIC the Answer?",
+                    "Should You Try TOPIC?",
+"Which TOPIC to Choose?",
+                    "TOPIC: Good or Bad?",
+                    "What About TOPIC?",
+                    "TOPIC: Yes or No?",
+                    "Ready for TOPIC?",
+                    "Have You Tried TOPIC?",
+                    "TOPIC: The Missing Link?"
+                ],
+                medium: [
+                    "Why Is TOPIC So Important for Success?",
+                    "How Can TOPIC Improve Your Results?",
+                    "What Are the Best TOPIC Strategies?",
+                    "Is Your TOPIC Strategy Working?",
+                    "Why Do Most TOPIC Attempts Fail?",
+                    "What Makes TOPIC So Effective?",
+                    "How Can You Master TOPIC Quickly?",
+                    "What Are the Biggest TOPIC Myths?",
+                    "Why Is Everyone Talking About TOPIC?",
+                    "What Should You Know Before Trying TOPIC?",
+                    "Are You Making These TOPIC Mistakes?",
+                    "Could TOPIC Be the Solution You Need?",
+                    "What Do Experts Say About TOPIC?",
+                    "How Has TOPIC Evolved in YEAR?",
+                    "Why Should You Care About TOPIC Now?",
+                    "What Makes a Great TOPIC Strategy?",
+                    "How Will TOPIC Change in the Future?",
+                    "When Is the Right Time for TOPIC?",
+                    "Which TOPIC Approach Works Best?",
+                    "Are These TOPIC Misconceptions Holding You Back?"
+                ],
+                long: [
+                    "Why Are So Many People Getting TOPIC Wrong and How Can You Do Better?",
+                    "How Can You Tell If Your TOPIC Strategy Is Actually Working?",
+                    "What Are the Most Important Factors for TOPIC Success?",
+                    "Why Do Some TOPIC Strategies Succeed While Others Fail?",
+                    "How Can You Implement TOPIC Without Making Common Mistakes?",
+                    "What Should You Know About TOPIC Before Getting Started?",
+                    "How Do the Most Successful People Approach TOPIC Differently?",
+                    "Why Is Traditional TOPIC Advice Not Working Anymore?",
+                    "What Are the Hidden Challenges of TOPIC Nobody Talks About?",
+                    "How Can You Measure If Your TOPIC Strategy Is Actually Effective?",
+                    "Why Has TOPIC Become So Important in Recent Years?",
+                    "What Do You Need to Know About TOPIC in YEAR?",
+                    "How Will Recent Changes Impact Your TOPIC Strategy?",
+                    "Are You Making These Critical TOPIC Mistakes Without Realizing It?",
+                    "What Can History Teach Us About Effective TOPIC Strategies?",
+                    "Why Is Everyone Suddenly Changing Their Approach to TOPIC?",
+                    "How Can You Tell If You're Ready for Advanced TOPIC Methods?",
+                    "What Makes the Difference Between Average and Excellent TOPIC Results?",
+                    "Why Should You Reconsider Everything You Know About TOPIC?",
+                    "How Can You Adapt Your TOPIC Strategy for Tomorrow's Challenges?"
+                ]
+            },
+            howto: {
+                short: [
+                    "How to Master TOPIC",
+                    "Guide to TOPIC",
+                    "TOPIC: Step by Step",
+                    "Easy TOPIC Tutorial",
+                    "TOPIC in X Steps",
+                    "How to Learn TOPIC",
+                    "TOPIC: A Beginner's Guide",
+                    "TOPIC for Dummies",
+                    "TOPIC Made Simple",
+                    "Start with TOPIC",
+                    "TOPIC: Quick Start",
+                    "DIY TOPIC Guide",
+                    "TOPIC Basics",
+                    "Learn TOPIC Fast",
+                    "Simple TOPIC Steps",
+                    "TOPIC 101",
+                    "TOPIC Quick Guide",
+                    "Mastering TOPIC",
+                    "TOPIC Essentials",
+                    "How to Do TOPIC"
+                ],
+                medium: [
+                    "How to Master TOPIC in X Simple Steps",
+                    "The Complete Guide to Learning TOPIC",
+                    "Step-by-Step Tutorial for TOPIC Success",
+                    "How to Implement TOPIC Effectively",
+                    "X Steps to Becoming a TOPIC Expert",
+                    "How to Get Started with TOPIC Today",
+                    "The Ultimate TOPIC Guide for Beginners",
+                    "How to Improve Your TOPIC Skills Quickly",
+                    "Step-by-Step Process for TOPIC Mastery",
+                    "How to Solve Common TOPIC Problems",
+                    "X Ways to Level Up Your TOPIC Abilities",
+                    "How to Create an Effective TOPIC Strategy",
+                    "The Beginner's Roadmap to TOPIC Success",
+                    "How to Implement TOPIC in Your Workflow",
+                    "X Practical Steps to Better TOPIC Results",
+                    "How to Choose the Right TOPIC Approach",
+                    "Step-by-Step Guide to TOPIC Implementation",
+                    "How to Avoid Common TOPIC Pitfalls",
+                    "The Simplified Method for Learning TOPIC",
+                    "How to Excel at TOPIC in Record Time"
+                ],
+                long: [
+                    "How to Master TOPIC: A Comprehensive Step-by-Step Guide for Beginners",
+                    "The Complete Roadmap to TOPIC Success: From Novice to Expert",
+                    "How to Implement an Effective TOPIC Strategy in X Practical Steps",
+                    "Step-by-Step Guide to Mastering TOPIC: Everything You Need to Know",
+                    "How to Overcome Common TOPIC Challenges: A Problem-Solving Approach",
+                    "The Ultimate Guide to Learning TOPIC: A Systematic Approach",
+                    "How to Transform Your TOPIC Results in X Days: Detailed Instructions",
+                    "Step-by-Step Tutorial: Building Your TOPIC Skills from the Ground Up",
+                    "How to Create a Winning TOPIC Strategy: The Complete Blueprint",
+                    "The Definitive Process for TOPIC Implementation: A Practical Guide",
+                    "How to Develop Expert-Level TOPIC Skills: The Comprehensive Method",
+                    "Step-by-Step Guide to Solving the Most Challenging TOPIC Problems",
+                    "How to Successfully Integrate TOPIC into Your Existing Workflow",
+                    "The Complete System for TOPIC Mastery: Every Step Explained",
+                    "How to Build a Solid Foundation in TOPIC: First Principles Approach",
+                    "Step-by-Step Instructions to Take Your TOPIC to the Next Level",
+                    "How to Optimize Every Aspect of Your TOPIC Process: Detailed Guide",
+                    "The Structured Approach to Learning TOPIC: From Basics to Advanced",
+                    "How to Troubleshoot and Fix the Most Common TOPIC Issues",
+                    "The Ultimate TOPIC Learning Path: Detailed Steps to Mastery"
+                ]
+            },
+            listicle: {
+                short: [
+                    "X TOPIC Tips",
+                    "Top TOPIC Strategies",
+                    "TOPIC Ideas That Work",
+                    "X TOPIC Mistakes",
+                    "Best TOPIC Examples",
+                    "X TOPIC Trends",
+                    "Key TOPIC Principles",
+                    "TOPIC Hacks",
+                    "X TOPIC Tools",
+                    "TOPIC Dos and Don'ts",
+                    "X TOPIC Rules",
+                    "TOPIC Essentials",
+                    "TOPIC Stats",
+                    "X TOPIC Methods",
+                    "Common TOPIC Errors",
+                    "TOPIC Success Factors",
+                    "X TOPIC Resources",
+                    "Popular TOPIC Types",
+                    "TOPIC Warning Signs",
+                    "X TOPIC Shortcuts"
+                ],
+                medium: [
+                    "X Essential TOPIC Strategies for Success",
+                    "Top Ways to Improve Your TOPIC Results",
+                    "X Common TOPIC Mistakes to Avoid",
+                    "The Best TOPIC Tools to Try in YEAR",
+                    "X TOPIC Tips That Actually Work",
+                    "Key TOPIC Trends to Watch in YEAR",
+                    "X Expert-Approved TOPIC Techniques",
+                    "The Most Effective TOPIC Methods Ranked",
+                    "X TOPIC Examples to Learn From",
+                    "Critical TOPIC Factors You Can't Ignore",
+                    "X Ways to Transform Your TOPIC Approach",
+                    "The Most Common TOPIC Questions Answered",
+                    "X TOPIC Rules the Experts Follow",
+                    "Surprising TOPIC Facts You Should Know",
+                    "X TOPIC Resources Worth Checking Out",
+                    "The Biggest TOPIC Challenges and Solutions",
+                    "X TOPIC Myths Debunked for Good",
+                    "The Most Valuable TOPIC Lessons Learned",
+                    "X TOPIC Warning Signs to Watch For",
+                    "Game-Changing TOPIC Strategies to Try"
+                ],
+                long: [
+                    "X Essential TOPIC Strategies That Will Transform Your Results in YEAR",
+                    "The Top Ways to Improve Your TOPIC Performance: Complete List",
+                    "X Common TOPIC Mistakes You're Making and How to Fix Them",
+                    "The Ultimate List of TOPIC Tools and Resources for YEAR",
+                    "X Expert-Recommended TOPIC Techniques That Actually Get Results",
+                    "The Most Important TOPIC Trends to Watch in YEAR and Beyond",
+                    "X Game-Changing TOPIC Strategies That the Experts Don't Share",
+                    "The Comprehensive List of TOPIC Best Practices for Every Situation",
+                    "X Critical TOPIC Success Factors That Make or Break Your Results",
+                    "The Most Valuable TOPIC Lessons From X Industry Leaders",
+                    "X Surprising TOPIC Statistics That Will Change Your Strategy",
+                    "The Complete List of TOPIC Do's and Don'ts for YEAR",
+                    "X Proven TOPIC Methods Ranked by Effectiveness and Difficulty",
+                    "The Biggest TOPIC Challenges and How Successful People Solve Them",
+                    "X TOPIC Myths That Are Hurting Your Results (And the Truth)",
+                    "The Most Comprehensive Collection of TOPIC Examples and Case Studies",
+                    "X Warning Signs Your TOPIC Strategy Is About to Fail",
+                    "The Ultimate List of TOPIC Resources for Every Level of Expertise",
+                    "X TOPIC Shortcuts That Don't Sacrifice Quality or Results",
+                    "The Most Influential TOPIC Changes That Will Impact Your Success"
+                ]
+            },
+            news: {
+                short: [
+                    "TOPIC Breakthrough Revealed",
+                    "New TOPIC Discovery",
+                    "TOPIC Industry Disruption",
+                    "Latest TOPIC Trends",
+                    "TOPIC Market Shifts",
+                    "Breaking TOPIC News",
+                    "TOPIC Policy Changes",
+                    "TOPIC Study Results",
+                    "Major TOPIC Announcement",
+                    "TOPIC Technology Update",
+                    "TOPIC Regulation Impact",
+                    "Recent TOPIC Developments",
+                    "TOPIC Industry Shift",
+                    "TOPIC Market Report",
+                    "TOPIC Leadership Change",
+                    "Critical TOPIC Update",
+                    "TOPIC Compliance Alert",
+                    "TOPIC Strategy Pivot",
+                    "TOPIC Investigation Findings",
+                    "TOPIC Innovation Launch"
+                ],
+                medium: [
+                    "New Study Reveals Surprising TOPIC Findings",
+                    "Major Shift in TOPIC Industry Announced Today",
+                    "Breaking: TOPIC Regulations Set to Change in YEAR",
+                    "Recent TOPIC Trends Show Significant Market Changes",
+                    "Key TOPIC Players Announce Strategic Partnership",
+                    "Latest Research Challenges Common TOPIC Assumptions",
+                    "TOPIC Market Report: Key Insights for YEAR",
+                    "Industry Leaders Reveal New Approach to TOPIC",
+                    "TOPIC Technology Breakthrough Promises Major Impact",
+                    "Expert Analysis: What's Next for TOPIC in YEAR",
+                    "Breaking News: Major TOPIC Policy Overhaul Announced",
+                    "New Data Shows Unexpected TOPIC Performance Metrics",
+                    "TOPIC Industry Faces Disruption After Recent Events",
+                    "Report: TOPIC Adoption Rates Surge in Q1 YEAR",
+                    "TOPIC Experts Warn of Coming Challenges in YEAR",
+                    "New Framework for TOPIC Compliance Released Today",
+                    "Analysis: How Recent Events Will Impact TOPIC Strategy",
+                    "TOPIC Survey Results Reveal Changing Professional Attitudes",
+                    "Major TOPIC Conference Highlights Emerging Trends",
+                    "Breaking: Innovative TOPIC Approach Shows Promising Results"
+                ],
+                long: [
+                    "Breaking: New Research Study Reveals Groundbreaking Insights About TOPIC Effects",
+                    "Major Industry Report: The State of TOPIC in YEAR and Strategic Outlook",
+                    "Just Announced: Comprehensive Changes to TOPIC Regulations Will Take Effect Next Quarter",
+                    "Market Analysis: How Recent TOPIC Developments Are Reshaping the Industry Landscape",
+                    "Expert Consensus: The Most Significant TOPIC Trends and Predictions for YEAR",
+                    "Breaking News: Leading Organizations Announce Collaborative TOPIC Initiative",
+                    "Comprehensive Report Finds Unexpected Patterns in TOPIC Implementation Success Rates",
+                    "Industry Alert: Critical TOPIC Security Vulnerabilities Discovered and Mitigation Strategies",
+                    "Just Released: The Definitive TOPIC Benchmark Study for YEAR with Key Performance Indicators",
+                    "Analysis: How Recent Economic Shifts Are Transforming TOPIC Strategy and Implementation",
+                    "Major Announcement: Revolutionary New Approach to TOPIC Promises Significant Improvements",
+                    "Breaking: International Standards for TOPIC Practice Updated for the First Time in a Decade",
+                    "Special Report: The Evolving Relationship Between TOPIC and Related Industry Developments",
+                    "Just Published: Comprehensive Survey of TOPIC Professionals Reveals Changing Priorities",
+                    "Market Intelligence: How Leading Organizations Are Adapting Their TOPIC Approach for YEAR",
+                    "Breaking News: Unexpected Consequences of Recent TOPIC Policy Changes Emerging",
+                    "Industry-Wide Alert: Critical TOPIC Compliance Requirements Taking Effect Next Month",
+                    "Research Findings: The Measurable Impact of TOPIC on Organizational Performance Metrics",
+                    "Just Announced: Major Technology Breakthrough Set to Transform TOPIC Implementation",
+                    "Expert Analysis: The Long-Term Implications of Current TOPIC Trends on Industry Standards"
+                ]
+            },
+            mixed: {
+                short: [
+                    "Why TOPIC Matters Now",
+                    "X Essential TOPIC Facts",
+                    "TOPIC Revolution Begins",
+                    "Master TOPIC Quickly",
+                    "TOPIC: The Complete Picture",
+                    "Rethinking TOPIC Today",
+                    "Beyond Basic TOPIC",
+                    "TOPIC Secrets Unveiled",
+                    "The TOPIC Advantage",
+                    "TOPIC in Focus",
+                    "TOPIC Transformation",
+                    "Strategic TOPIC Guide",
+                    "TOPIC Questions Answered",
+                    "Real TOPIC Solutions",
+                    "TOPIC Success Patterns",
+                    "Inside TOPIC",
+                    "Next-Level TOPIC",
+                    "TOPIC Clarity",
+                    "TOPIC Reality Check",
+                    "The TOPIC Code"
+                ],
+                medium: [
+                    "How to Master TOPIC: X Essential Strategies",
+                    "Why TOPIC Matters More Than Ever in YEAR",
+                    "The Surprising Truth About TOPIC Success",
+                    "X Ways to Transform Your Approach to TOPIC",
+                    "Breaking Down TOPIC: What Really Works Now",
+                    "Is Your TOPIC Strategy Missing These Key Elements?",
+                    "The Evolution of TOPIC: Past, Present and Future",
+                    "Beyond the Basics: Advanced TOPIC Principles",
+                    "TOPIC Reimagined: A Fresh Perspective for YEAR",
+                    "The Strategic Guide to TOPIC Implementation",
+                    "X TOPIC Myths That Are Holding You Back",
+                    "The Hidden Patterns Behind Successful TOPIC",
+                    "TOPIC in YEAR: New Research and Insights",
+                    "Why Most TOPIC Strategies Fail (And How to Succeed)",
+                    "Mastering the Art and Science of TOPIC",
+                    "The TOPIC Framework That Changes Everything",
+                    "X Critical Questions About TOPIC, Answered",
+                    "The Complete TOPIC Roadmap for YEAR",
+                    "Rethinking TOPIC: A More Effective Approach",
+                    "The Ultimate TOPIC Playbook for Success"
+                ],
+                long: [
+                    "The Ultimate Guide to TOPIC: X Strategic Approaches That Actually Work",
+                    "Why Conventional TOPIC Wisdom Is Failing: X New Insights for YEAR",
+                    "How to Build a Comprehensive TOPIC Strategy: From Basics to Advanced",
+                    "X Surprising TOPIC Trends That Will Transform Your Approach in YEAR",
+                    "The Complete TOPIC Playbook: Essential Strategies for Every Situation",
+                    "Beyond the Hype: What Really Works in TOPIC According to New Research",
+                    "Why Is TOPIC So Misunderstood? X Critical Insights for Better Results",
+                    "The Strategic TOPIC Framework: A Comprehensive System for Success",
+                    "How to Master TOPIC: X Expert Strategies That Most People Overlook",
+                    "The Evolution of TOPIC: Historical Lessons and Future Predictions",
+                    "X Ways to Immediately Improve Your TOPIC Results: A Practical Guide",
+                    "The Hidden Patterns of TOPIC Success: What the Data Actually Shows",
+                    "A Fresh Perspective on TOPIC: Rethinking Conventional Approaches",
+                    "The TOPIC Mastery Blueprint: A Step-by-Step Implementation Guide",
+                    "Why Most TOPIC Advice Fails: X Critical Factors You Need to Consider",
+                    "The State of TOPIC in YEAR: Comprehensive Analysis and Predictions",
+                    "How Successful Organizations Approach TOPIC Differently: X Case Studies",
+                    "The Complete TOPIC Audit: Identifying and Fixing Strategic Weaknesses",
+                    "Beyond Quick Fixes: Building a Sustainable TOPIC Strategy for the Long Term",
+                    "The New Rules of TOPIC: How Recent Changes Impact Your Strategy"
+                ]
+            }
+        };
+
+        // Extract keywords from text
+        function extractKeywords(text) {
+            // Remove common words and punctuation
+            const commonWords = ["the", "and", "a", "an", "in", "on", "at", "to", "for", "with", "by", "about", "like", "through", "over", "before", "after", "under", "above", "from", "of", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "can", "could", "will", "would", "shall", "should", "may", "might", "must"];
+            
+            // Clean the text and split into words
+            const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+            
+            // Filter out common words and short words
+            const filteredWords = words.filter(word => 
+                word.length > 3 && !commonWords.includes(word)
+            );
+            
+            // Count word frequency
+            const wordCount = {};
+            filteredWords.forEach(word => {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            });
+            
+            // Sort by frequency
+            const sortedWords = Object.entries(wordCount)
+                .sort((a, b) => b[1] - a[1])
+                .map(entry => entry[0]);
+            
+            // Return top keywords
+            return sortedWords.slice(0, 5);
+        }
+
+        // Find synonyms for a word (simplified implementation)
+        function findSynonyms(word) {
+            const synonyms = {
+                'good': ['great', 'excellent', 'superb', 'outstanding', 'exceptional'],
+                'bad': ['poor', 'terrible', 'awful', 'subpar', 'disappointing'],
+                'big': ['large', 'huge', 'enormous', 'substantial', 'massive'],
+                'small': ['tiny', 'little', 'compact', 'miniature', 'petite'],
+                'important': ['crucial', 'essential', 'vital', 'critical', 'significant'],
+                'interesting': ['fascinating', 'intriguing', 'compelling', 'captivating', 'engaging'],
+                'happy': ['joyful', 'delighted', 'pleased', 'content', 'ecstatic'],
+                'sad': ['unhappy', 'depressed', 'melancholy', 'gloomy', 'sorrowful'],
+                'fast': ['quick', 'rapid', 'swift', 'speedy', 'expeditious'],
+                'slow': ['gradual', 'unhurried', 'leisurely', 'sluggish', 'plodding'],
+                // Add more synonym groups as needed
+            };
+            
+            return synonyms[word.toLowerCase()] || [word];
+        }
+
+        // Generate a single title with variations
+        function generateTitle(template, keywords, settings) {
+            const mainTopic = settings.manualTopic || (keywords.length > 0 ? keywords[0].toUpperCase() : 'TOPIC');
+            const year = new Date().getFullYear();
+            
+            let title = template;
+            
+            // Replace TOPIC with main keyword
+            title = title.replace(/TOPIC/g, mainTopic);
+            
+            // Replace YEAR
+            if (settings.includeDate === 'always' || (settings.includeDate === 'sometimes' && Math.random() > 0.5)) {
+                title = title.replace(/YEAR/g, year);
+            } else {
+                title = title.replace(/in YEAR/g, '').replace(/for YEAR/g, '').replace(/YEAR/g, '');
+            }
+            
+            // Add numbers for listicles if template contains 'X'
+            if (title.includes('X') && (settings.includeNumbers === 'always' || (settings.includeNumbers === 'sometimes' && Math.random() > 0.3))) {
+                const numbers = [3, 5, 7, 10, 12, 15, 20, 25, 30];
+                const number = numbers[Math.floor(Math.random() * numbers.length)];
+                title = title.replace(/X/g, number);
+            } else {
+                title = title.replace(/X /g, '').replace(/X-/g, '');
+            }
+            
+            // Clean up any double spaces
+            title = title.replace(/\s+/g, ' ').trim();
+            
+            return title;
+        }
+
+        // Generate a batch of titles
+        function generateTitleBatch(content, settings) {
+            const keywords = extractKeywords(content);
+            const titles = [];
+            const batchSize = parseInt(settings.batchSize);
+            
+            // Select templates based on style and length
+            let templates = [];
+            
+            if (settings.style === 'mixed') {
+                // Get templates from all styles
+                const styles = Object.keys(titleTemplates);
+                for (let i = 0; i < batchSize; i++) {
+                    const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+                    let length;
+                    
+                    if (settings.length === 'varied') {
+                        const lengths = ['short', 'medium', 'long'];
+                        length = lengths[Math.floor(Math.random() * lengths.length)];
+                    } else {
+                        length = settings.length;
+                    }
+                    
+                    const styleTemplates = titleTemplates[randomStyle][length];
+                    const randomTemplate = styleTemplates[Math.floor(Math.random() * styleTemplates.length)];
+                    templates.push(randomTemplate);
+                }
+            } else {
+                // Get templates from specific style
+                if (settings.length === 'varied') {
+                    const lengths = ['short', 'medium', 'long'];
+                    for (let i = 0; i < batchSize; i++) {
+                        const randomLength = lengths[Math.floor(Math.random() * lengths.length)];
+                        const lengthTemplates = titleTemplates[settings.style][randomLength];
+                        const randomTemplate = lengthTemplates[Math.floor(Math.random() * lengthTemplates.length)];
+                        templates.push(randomTemplate);
+                    }
+                } else {
+                    templates = [...titleTemplates[settings.style][settings.length]];
+                    // Shuffle templates
+                    templates.sort(() => Math.random() - 0.5);
+                    templates = templates.slice(0, batchSize);
+                }
+            }
+            
+            // Generate titles using templates
+            templates.forEach(template => {
+                const title = generateTitle(template, keywords, settings);
+                if (!titles.includes(title)) {
+                    titles.push(title);
+                }
+            });
+            
+            // If we don't have enough titles (due to duplicates), generate more
+            while (titles.length < batchSize) {
+                // Get a random template
+                let style, length;
+                
+                if (settings.style === 'mixed') {
+                    const styles = Object.keys(titleTemplates);
+                    style = styles[Math.floor(Math.random() * styles.length)];
+                } else {
+                    style = settings.style;
+                }
+                
+                if (settings.length === 'varied') {
+                    const lengths = ['short', 'medium', 'long'];
+                    length = lengths[Math.floor(Math.random() * lengths.length)];
+                } else {
+                    length = settings.length;
+                }
+                
+                const styleTemplates = titleTemplates[style][length];
+                const randomTemplate = styleTemplates[Math.floor(Math.random() * styleTemplates.length)];
+                
+                const title = generateTitle(randomTemplate, keywords, settings);
+                if (!titles.includes(title)) {
+                    titles.push(title);
+                }
+            }
+            
+            return titles;
+        }
+
+        // Generate more creative title variations
+        function generateCreativeVariations(title, count = 1) {
+            const variations = [];
+            const words = title.split(' ');
+            
+            for (let i = 0; i < count; i++) {
+                // Select a random word to replace (skip very short words)
+                const replaceable = words.filter(word => word.length > 4);
+                if (replaceable.length === 0) continue;
+                
+                const index = words.indexOf(replaceable[Math.floor(Math.random() * replaceable.length)]);
+                const word = words[index];
+                
+                // Find synonyms
+                const synonyms = findSynonyms(word);
+                const synonym = synonyms[Math.floor(Math.random() * synonyms.length)];
+                
+                // Create variation
+                const variation = [...words];
+                variation[index] = synonym;
+                
+                variations.push(variation.join(' '));
+            }
+            
+            return variations;
+        }
+
+        // Initialize saved titles array
+        let savedTitles = [];
+        let generatedCount = 0;
+
+        // Main function to generate titles
+        function generateTitles() {
+            const content = document.getElementById('content-input').value;
+            const style = document.getElementById('title-style').value;
+            const length = document.getElementById('title-length').value;
+            const batchSize = document.getElementById('batch-size').value;
+            const manualTopic = document.getElementById('manual-topic').value.trim();
+            const includeNumbers = document.getElementById('include-numbers').value;
+            const includeDate = document.getElementById('include-date').value;
+            const emotionalTone = document.getElementById('emotional-tone').value;
+            const structure = document.getElementById('title-structure').value;
+            
+            const outputArea = document.getElementById('output-area');
+            const titlesContainer = document.getElementById('titles-container');
+            const historyPanel = document.getElementById('history-panel');
+            const titleCount = document.getElementById('title-count');
+            
+            // Show loading state
+            const generateBtn = document.getElementById('generate-btn');
+            const originalBtnContent = generateBtn.innerHTML;
+            generateBtn.innerHTML = '<span class="button-content"><span class="loading"></span>Generating...</span>';
+            generateBtn.disabled = true;
+            
+            // Check if content is provided
+            if (!content || content.trim().length < 20) {
+                alert('Please enter more content for better title suggestions (minimum 20 characters).');
+                generateBtn.innerHTML = originalBtnContent;
+                generateBtn.disabled = false;
+                return;
+            }
+            
+            // Generate titles after a short delay (to show loading state)
+            setTimeout(() => {
+                // Clear previous titles
+                titlesContainer.innerHTML = '';
+                
+                // Generate titles based on settings
+                const settings = {
+                    style,
+                    length,
+                    batchSize,
+                    manualTopic,
+                    includeNumbers,
+                    includeDate,
+                    emotionalTone,
+                    structure
+                };
+                
+                const titles = generateTitleBatch(content, settings);
+                
+                // Add titles to container
+                titles.forEach(title => {
+                    generatedCount++;
+                    
+                    const titleElement = document.createElement('div');
+                    titleElement.className = 'title-option fade-in';
+                    
+                    const titleText = document.createElement('h3');
+                    titleText.textContent = title;
+                    
+                    const copyIndicator = document.createElement('span');
+                    copyIndicator.className = 'copy-indicator';
+                    copyIndicator.textContent = 'Copied!';
+                    
+                    titleElement.appendChild(titleText);
+                    titleElement.appendChild(copyIndicator);
+                    
+                    // Add click to copy functionality
+                    titleElement.addEventListener('click', () => {
+                        navigator.clipboard.writeText(title)
+                            .then(() => {
+                                // Show feedback
+                                copyIndicator.style.opacity = '1';
+                                setTimeout(() => {
+                                    copyIndicator.style.opacity = '0';
+                                }, 1000);
+                                
+                                // Add to saved titles if not already there
+                                if (!savedTitles.includes(title)) {
+                                    savedTitles.push(title);
+                                    updateHistoryPanel();
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Failed to copy: ', err);
+                            });
+                    });
+                    
+                    titlesContainer.appendChild(titleElement);
+                });
+                
+                // Update title count
+                titleCount.textContent = `${generatedCount} titles generated`;
+                
+                // Show output area and history panel
+                outputArea.style.display = 'block';
+                historyPanel.style.display = savedTitles.length > 0 ? 'block' : 'none';
+                
+                // Reset button state
+                generateBtn.innerHTML = originalBtnContent;
+                generateBtn.disabled = false;
+                
+                // Enable other buttons
+                document.getElementById('regenerate-btn').disabled = false;
+                document.getElementById('more-btn').disabled = false;
+            }, 500);
+        }
+
+        // Generate more titles
+        function generateMoreTitles() {
+            const content = document.getElementById('content-input').value;
+            const style = document.getElementById('title-style').value;
+            const length = document.getElementById('title-length').value;
+            const batchSize = document.getElementById('batch-size').value;
+            const manualTopic = document.getElementById('manual-topic').value.trim();
+            const includeNumbers = document.getElementById('include-numbers').value;
+            const includeDate = document.getElementById('include-date').value;
+            const emotionalTone = document.getElementById('emotional-tone').value;
+            const structure = document.getElementById('title-structure').value;
+            
+            const titlesContainer = document.getElementById('titles-container');
+            const titleCount = document.getElementById('title-count');
+            
+            // Show loading state
+            const moreBtn = document.getElementById('more-btn');
+            const moreTitlesBtn = document.getElementById('more-titles-btn');
+            const originalBtnContent = moreBtn.innerHTML;
+            moreBtn.innerHTML = '<span class="button-content"><span class="loading"></span>Generating...</span>';
+            moreBtn.disabled = true;
+            moreTitlesBtn.disabled = true;
+            
+            // Generate titles after a short delay (to show loading state)
+            setTimeout(() => {
+                // Generate titles based on settings
+                const settings = {
+                    style,
+                    length,
+                    batchSize,
+                    manualTopic,
+                    includeNumbers,
+                    includeDate,
+                    emotionalTone,
+                    structure
+                };
+                
+                const titles = generateTitleBatch(content, settings);
+                
+                // Add titles to container
+titles.forEach(title => {
+    generatedCount++;
+    
+    const titleElement = document.createElement('div');
+    titleElement.className = 'title-option fade-in';
+    
+    const titleText = document.createElement('h3');
+    titleText.textContent = title;
+    
+    const copyIndicator = document.createElement('span');
+    copyIndicator.className = 'copy-indicator';
+    copyIndicator.textContent = 'Copied!';
+    
+    titleElement.appendChild(titleText);
+    titleElement.appendChild(copyIndicator);
+    
+    // Add click to copy functionality
+    titleElement.addEventListener('click', () => {
+        navigator.clipboard.writeText(title)
+            .then(() => {
+                // Show feedback
+                copyIndicator.style.opacity = '1';
+                setTimeout(() => {
+                    copyIndicator.style.opacity = '0';
+                }, 1000);
+                
+                // Add to saved titles if not already there
+                if (!savedTitles.includes(title)) {
+                    savedTitles.push(title);
+                    updateHistoryPanel();
+                }
+            })
+            .catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+    });
+    
+    titlesContainer.appendChild(titleElement);
+});
+
+// Update title count
+titleCount.textContent = `${generatedCount} titles generated`;
+
+// Reset button state
+moreBtn.innerHTML = originalBtnContent;
+moreBtn.disabled = false;
+moreTitlesBtn.disabled = false;
+}, 500);
+}
+
+// Update history panel with saved titles
+function updateHistoryPanel() {
+    const historyContainer = document.getElementById('history-container');
+    const historyPanel = document.getElementById('history-panel');
+    
+    // Clear previous history
+    historyContainer.innerHTML = '';
+    
+    // Add saved titles to history
+    savedTitles.forEach(title => {
+        const titleElement = document.createElement('div');
+        titleElement.className = 'history-title';
+        titleElement.textContent = title;
+        
+        // Add click to copy functionality
+        titleElement.addEventListener('click', () => {
+            navigator.clipboard.writeText(title)
+                .then(() => {
+                    // Show feedback through temporary highlight
+                    const originalBackground = titleElement.style.backgroundColor;
+                    titleElement.style.backgroundColor = '#d4edda';
+                    setTimeout(() => {
+                        titleElement.style.backgroundColor = originalBackground;
+                    }, 500);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        });
+        
+        historyContainer.appendChild(titleElement);
+    });
+    
+    // Show or hide history panel
+    historyPanel.style.display = savedTitles.length > 0 ? 'block' : 'none';
+}
+
+// Clear history
+function clearHistory() {
+    savedTitles = [];
+    updateHistoryPanel();
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Generate titles button
+    document.getElementById('generate-btn').addEventListener('click', generateTitles);
+    
+    // Regenerate button
+    document.getElementById('regenerate-btn').addEventListener('click', generateTitles);
+    
+    // More titles buttons
+    document.getElementById('more-btn').addEventListener('click', generateMoreTitles);
+    document.getElementById('more-titles-btn').addEventListener('click', generateMoreTitles);
+    
+    // Clear history button
+    document.getElementById('clear-history').addEventListener('click', clearHistory);
+    
+    // Advanced options toggle
+    document.getElementById('advanced-toggle').addEventListener('click', function() {
+        const advancedOptions = document.getElementById('advanced-options');
+        const isVisible = advancedOptions.style.display === 'block';
+        
+        advancedOptions.style.display = isVisible ? 'none' : 'block';
+        this.textContent = isVisible ? 'Show Advanced Options ▼' : 'Hide Advanced Options ▲';
+    });
+    
+    // Generate titles when pressing Enter in the textarea
+    document.getElementById('content-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            generateTitles();
+        }
+    });
+});
+  //]]>
+</script>
+</body>
+</html>
